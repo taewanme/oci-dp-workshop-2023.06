@@ -16,6 +16,7 @@ def handler(ctx, data: io.BytesIO=None):
         sasl_username = cfg["sasl.username"]
         sasl_password = cfg["sasl.password"]
         topic = cfg["topic"]
+        compartmentocid = cfg["compartmentocid"]
     except Exception:
         logging.getLogger().error('Missing function parameters: bootstrap.servers, sasl.username, sasl.password and topic')
         raise
@@ -39,7 +40,7 @@ def handler(ctx, data: io.BytesIO=None):
             logging.getLogger().debug('Decoded value: {}.'.format(value))
 
             value = json.loads(value)
-            value = add_ko_fields_with_crawled_data(value)
+            value = add_ko_fields_with_crawled_data(value, compartmentocid)
             value = add_oci_services_field(value)
             value = add_key_phrase_field(value)
             
@@ -68,14 +69,12 @@ def detect_language(src_text):
     
     return output.data.languages[0].code
 
-def add_ko_fields_with_crawled_data(crawled_data):  
+def add_ko_fields_with_crawled_data(crawled_data, compartment_ocid):  
     signer = oci.auth.signers.get_resource_principals_signer()
     ai_client = oci.ai_language.AIServiceLanguageClient(config={}, signer=signer)   
 
     based_language_code = detect_language(crawled_data["title"])
     logging.getLogger().debug('Base Language Code: {}.'.format(based_language_code))
-
-    compartment_ocid='ocid1.compartment.oc1..aaaaaaaanuti5hnryepkjyx2z2m6chrjes2fbakfyj7qmycmatiyrcu66nra'
 
     docs = []
     doc = oci.ai_language.models.text_document.TextDocument(key='title', text=crawled_data['title'], language_code=based_language_code)
@@ -155,6 +154,3 @@ def produce_messages(conf, topic, json_str):
     producer = Producer(**conf)  
     producer.produce(topic, value=json_str) 
     producer.flush()
-
-
- 
