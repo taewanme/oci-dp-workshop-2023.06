@@ -4,8 +4,8 @@ import json
 from json import dumps
 
 STREAM_NAME='crawled_stream'
-STREAM_OCID='ocid1.stream.oc1.ap-tokyo-1.amaaaaaavsea7yiav5u5y3oxzpeubbz5r5e7k47o3b5pgpa6rw36j22s6wba'
-MESSAGE_ENDPOINT='https://cell-1.streaming.ap-tokyo-1.oci.oraclecloud.com'
+STREAM_OCID='<<#RES#INFO#01>>'
+MESSAGE_ENDPOINT='<<#RES#INFO#02>>'
   
 def produce_messages(json_str, client, stream_ocid):
   message_list = []
@@ -43,5 +43,3 @@ if __name__ == "__main__":
     print("===================")
     print("Task(Sedning MSG to The enhanced_stream) completed....")
     print("===================")
-
-
