@@ -26,8 +26,8 @@ CREATE TABLE "ADMIN"."LIVELABS"
 begin 
     DBMS_CLOUD.create_credential(
         credential_name => 'OBJ_STORE_CRED_DPWS',
-        username => 'taewanme@gmail.com',
-        password => 'r7oCKgz3wE[q2BB#R#W9');
+        username => '<<Please Update with OCI IAM User ID in Excel>>',
+        password => '<<Please Update with User Auth Token in Excel>>');
 end;
 /
 ```
