@@ -1,5 +1,5 @@
 schema_version: 20180708
-name: loading_file_from_os_to_atp_fn
+name: triggering_fn
 version: 0.0.15
 runtime: python
 build_image: fnproject/python:3.9-dev
