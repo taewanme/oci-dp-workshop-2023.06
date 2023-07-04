@@ -1,5 +1,5 @@
 schema_version: 20180708
-name: triggering_fn
+name: triggering_fn_<mail_id>
 version: 0.0.15
 runtime: python
 build_image: fnproject/python:3.9-dev
